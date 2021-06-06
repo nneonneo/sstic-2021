@@ -1,0 +1,129 @@
+1100: 45060100 xor.o r1, r1
+
+; copy 0x40 bytes from 0x2000 to 0x3000
+1104: 49074000 cmpeq.o r1, 0x40
+1108: 4ce32c11 jall1.o r0, 0x112c
+110c: 421f0020 ldi.o r7, 0x2000
+1110: 421b0030 ldi.o r6, 0x3000
+1114: 401e0100 add.o r7, r1
+1118: 401a0100 add.o r6, r1
+111c: 4e000700 ld.o r0, [r7]
+1120: 4f000600 st.o r0, [r6]
+1124: 40071000 add.o r1, 0x10
+1128: 4c030411 jmp.o r0, 0x1104
+
+
+112c: 451e0700 xor.o r7, r7
+
+  1130: 491f1400 cmpeq.o r7, 0x14
+  1134: 4ce33812 jall1.o r0, 0x1238
+  1138: 421b0030 ldi.o r6, 0x3000
+  113c: 4e000600 ld.o r0, [r6]
+  1140: 401b1000 add.o r6, 0x10
+  1144: 4e040600 ld.o r1, [r6]
+  1148: 401b1000 add.o r6, 0x10
+  114c: 4e080600 ld.o r2, [r6]
+  1150: 401b1000 add.o r6, 0x10
+  1154: 4e0c0600 ld.o r3, [r6]
+
+  1158: 451a0600 xor.o r6, r6
+  115c: 401b0100 add.o r6, 0x1
+  1160: 431a0700 and.o r6, r7
+  1164: 45160500 xor.o r5, r5
+  1168: 491a0500 cmpeq.o r6, r5
+  116c: 4ca39811 jall0.o r0, 0x1198
+
+  # even iterations
+  1170: 7d03d011 call r0, 0x11d0
+
+  1174: 421b0030 ldi.o r6, 0x3000
+  1178: 4f000600 st.o r0, [r6]
+  117c: 401b1000 add.o r6, 0x10
+  1180: 4f040600 st.o r1, [r6]
+  1184: 401b1000 add.o r6, 0x10
+  1188: 4f080600 st.o r2, [r6]
+  118c: 401b1000 add.o r6, 0x10
+  1190: 4f0c0600 st.o r3, [r6]
+  1194: 4c033011 jmp.o r0, 0x1130
+
+  # odd iterations
+  1198: 2a040000 lanerot.d r1
+  119c: 2a080000 lanerot.d r2
+  11a0: 2a080000 lanerot.d r2
+  11a4: 2a0c0000 lanerot.d r3
+  11a8: 2a0c0000 lanerot.d r3
+  11ac: 2a0c0000 lanerot.d r3
+  11b0: 7d03d011 call r0, 0x11d0
+  11b4: 2a0c0000 lanerot.d r3
+  11b8: 2a080000 lanerot.d r2
+  11bc: 2a080000 lanerot.d r2
+  11c0: 2a040000 lanerot.d r1
+  11c4: 2a040000 lanerot.d r1
+  11c8: 2a040000 lanerot.d r1
+  11cc: 4c037411 jmp.o r0, 0x1174
+
+[procedure]
+  11d0: 20020100 add.d r0, r1
+  11d4: 250e0000 xor.d r3, r0
+  11d8: 42160300 ldi.o r5, r3
+  11dc: 27171000 shl.d r5, 0x10
+  11e0: 260f1000 shr.d r3, 0x10
+  11e4: 240e0500 or.d r3, r5
+
+  11e8: 200a0300 add.d r2, r3
+  11ec: 25060200 xor.d r1, r2
+  11f0: 42160100 ldi.o r5, r1
+  11f4: 27170c00 shl.d r5, 0xc
+  11f8: 26071400 shr.d r1, 0x14
+  11fc: 24060500 or.d r1, r5
+
+  1200: 20020100 add.d r0, r1
+  1204: 250e0000 xor.d r3, r0
+  1208: 42160300 ldi.o r5, r3
+  120c: 27170800 shl.d r5, 0x8
+  1210: 260f1800 shr.d r3, 0x18
+  1214: 240e0500 or.d r3, r5
+
+  1218: 200a0300 add.d r2, r3
+  121c: 25060200 xor.d r1, r2
+  1220: 42160100 ldi.o r5, r1
+  1224: 27170700 shl.d r5, 0x7
+  1228: 26071900 shr.d r1, 0x19
+  122c: 24060500 or.d r1, r5
+
+  1230: 401f0100 add.o r7, 0x1
+  1234: 0b000000 ret.b r0, [r0]
+
+1238: 42030020 ldi.o r0, 0x2000
+123c: 420b0001 ldi.o r2, 0x100
+1240: 4e050030 ld.o r1, [0x3000]
+1244: 4e0c0200 ld.o r3, [r2]
+1248: 20060000 add.d r1, r0
+124c: 45060300 xor.o r1, r3
+1250: 4f050030 st.o r1, [0x3000]
+
+1254: 40031000 add.o r0, 0x10
+1258: 400b1000 add.o r2, 0x10
+125c: 4e051030 ld.o r1, [0x3010]
+1260: 4e0c0200 ld.o r3, [r2]
+1264: 20060000 add.d r1, r0
+1268: 45060300 xor.o r1, r3
+126c: 4f051030 st.o r1, [0x3010]
+
+1270: 40031000 add.o r0, 0x10
+1274: 400b1000 add.o r2, 0x10
+1278: 4e052030 ld.o r1, [0x3020]
+127c: 4e0c0200 ld.o r3, [r2]
+1280: 20060000 add.d r1, r0
+1284: 45060300 xor.o r1, r3
+1288: 4f052030 st.o r1, [0x3020]
+
+128c: 40031000 add.o r0, 0x10
+1290: 400b1000 add.o r2, 0x10
+1294: 4e053030 ld.o r1, [0x3030]
+1298: 4e0c0200 ld.o r3, [r2]
+129c: 20060000 add.d r1, r0
+12a0: 45060300 xor.o r1, r3
+12a4: 4f053030 st.o r1, [0x3030]
+
+12a8: 0b000000 ret.b r0, [r0]

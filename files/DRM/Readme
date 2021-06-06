@@ -1,0 +1,12 @@
+Here is a prototype of the DRM solution we plan to use for SSTIC 2021. 
+It's 100% secure, because keys are stored on a device specifically designed
+for this. It uses a custom architecture which garantee even more security!
+In any case, the device is configured in debug mode so production keys can't
+be accessed.
+
+The file DRM_server.tar.gz is the remote part of the solution, but for now we
+can't emulate the device, so some feature are only available remotely.
+The file libchall_plugin.so is a VLC plugin that will allow you to test the solution,
+if you ever decide to install Linux :)
+
+Trou
